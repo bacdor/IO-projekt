@@ -51,11 +51,6 @@ wyszukaj_produkt = function(){
         produkt.rozmiar = "S";
         produkt.cena *= 1.05;
     }
-    
-    let h1 = document.createElement("h1");
-
-    //setting this css style solving problem with new line in textContent
-    h1.setAttribute('style', 'white-space: pre;');
 
     document.getElementById('wyszukany_produkt').textContent = produkt.nazwa + ", rozmiar: " + produkt.rozmiar + ", kolor: ";
     document.getElementById('wyszukany_produkt').textContent += produkt.kolor + "-- CENA: " + produkt.cena + " zł";
