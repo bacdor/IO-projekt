@@ -1,3 +1,6 @@
+
+
+
 class Produkt {
     constructor(nazwa, kolor, rozmiar, cena) {
         this.nazwa = nazwa;
@@ -7,6 +10,7 @@ class Produkt {
         this.wybierz_rozmiar = function (){
 
         document.getElementById('rozmiar').innerHTML = "Wybierz rozmiar: ";
+        
         
             
          }
@@ -25,8 +29,5 @@ test = function(){
    produkt1.wybierz_rozmiar();
 
 }
-
-//test();
-
 
 
