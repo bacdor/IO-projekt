@@ -1,8 +1,10 @@
 class Koszyk {
-    constructor(listaProduktow) {
+    constructor(listaProduktow, cena_laczna) {
         this.listaProduktow = listaProduktow;
+        this.cena_laczna = cena_laczna;
 
-    }
+    }   
+    
 }
 
 class Produkt {
@@ -15,8 +17,19 @@ class Produkt {
     }
 }
 
+class Zamownienie{
+    constructor(dostawa, zaplata, nr) {
+        this.dostawa = dostawa;
+        this.zaplata = zaplata;
+        this.nr = nr;
 
-wyszukaj_produkt = function(){
+    }
+
+
+}
+
+
+  wyszukaj_produkt = function(){
     produkt = new Produkt();
 
 
@@ -44,23 +57,86 @@ wyszukaj_produkt = function(){
 
     if(document.getElementById('large').checked) {
         produkt.rozmiar = "L";
-        produkt.cena *= 1.02;
+        produkt.cena += 1.50;
     }else if(document.getElementById('medium').checked) {
         produkt.rozmiar = "M";
     }else{
         produkt.rozmiar = "S";
-        produkt.cena *= 1.05;
+        produkt.cena -= 1.50;
     }
 
     document.getElementById('wyszukany_produkt').textContent = produkt.nazwa + ", rozmiar: " + produkt.rozmiar + ", kolor: ";
     document.getElementById('wyszukany_produkt').textContent += produkt.kolor + "-- CENA: " + produkt.cena + " zł";
-
-    console.log(produkt.nazwa);
-    console.log(produkt.kolor);
-    console.log(produkt.rozmiar);
-    console.log(produkt.cena);
+    document.getElementById('wyszukany_produkt').innerHTML += "<button type='button' onclick='dodaj_do_koszyka(produkt)'>dodaj do koszyka</button>";
+    
  }
 
-main = function() {
-    koszyk = new Koszyk();
+                                                                                //KOSZYK
+koszyk = new Koszyk();
+koszyk.listaProduktow = Array();
+
+console.log(typeof koszyk.listaProduktow);
+
+
+
+dodaj_do_koszyka = function(Produkt) {
+alert("Dodano "+ Produkt.nazwa + " do koszyka");
+koszyk.listaProduktow.push(Produkt);  
+
+}
+
+
+
+wyswietl_koszyk = function()
+{
+    document.getElementById('koszyk').innerHTML = "";
+
+    if(koszyk.listaProduktow.length == 0)
+    {
+        alert("Koszyk jest pusty");
+    }
+    else
+    {
+        for(var i=0; i<koszyk.listaProduktow.length; i++)
+        {
+             document.getElementById('koszyk').innerHTML += i+1 + ". " + koszyk.listaProduktow[i].nazwa;
+             document.getElementById('koszyk').innerHTML += " " + koszyk.listaProduktow[i].kolor + " ";
+             document.getElementById('koszyk').innerHTML += koszyk.listaProduktow[i].rozmiar + "---------- ";
+             document.getElementById('koszyk').innerHTML += koszyk.listaProduktow[i].cena + "zł <br>";
+        }
+    }
+      
+    var suma=0;
+
+    for(var i=0; i<koszyk.listaProduktow.length; i++)
+    {
+        suma += koszyk.listaProduktow[i].cena;
+        
+    }
+
+    koszyk.cena_laczna = suma;
+
+    document.getElementById('koszyk').innerHTML += "SUMA: " + koszyk.cena_laczna + "zł <br>";
+    document.getElementById('koszyk').innerHTML += "<a href='zamowienie.html'>Złóż zamównienie</a>";
+
+
+ }
+
+
+                                                                //ZAMOWNIENE
+
+zamow = function(koszyk)
+{
+    zamowienie = new Zamownienie();
+    if(document.getElementById('imie').value=="" || document.getElementById('naz').value=="" || document.getElementById('adres').value=="" || document.getElementById('mail').value==""  )
+    {
+        alert("Uzupelnij wszystkie pola!");
+    }
+    else
+    {
+        alert("Zamowienie zostało przyjete");
+        location.href="index.html";
+        
+    }
+    
 }
